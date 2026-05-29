@@ -1,0 +1,80 @@
+import { motion } from "framer-motion";
+import { GraduationCap, Award, BookOpen, Code2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function Education() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  };
+  const item = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-16 md:py-24 max-w-5xl">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">Education</h1>
+        <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
+      </motion.div>
+
+      <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8">
+        <motion.div variants={item} className="md:col-span-2">
+          <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20 overflow-hidden relative group">
+            <div className="absolute right-0 top-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-primary/20 transition-colors duration-500" />
+            <CardContent className="p-8 md:p-10 flex flex-col md:flex-row gap-6 items-start md:items-center relative z-10">
+              <div className="w-20 h-20 rounded-2xl bg-primary/20 text-primary flex items-center justify-center shrink-0">
+                <GraduationCap className="w-10 h-10" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl md:text-3xl font-bold font-display text-foreground">
+                  Master of Computer Applications (MCA)
+                </h3>
+                <p className="text-lg text-muted-foreground font-medium">MIC College of Technology</p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <span className="px-3 py-1 bg-background rounded-full text-xs font-medium border shadow-sm">Postgraduate</span>
+                  <span className="px-3 py-1 bg-background rounded-full text-xs font-medium border shadow-sm">Computer Science</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div variants={item}>
+          <Card className="h-full border-border/50 hover:border-primary/50 transition-colors hover:shadow-md">
+            <CardContent className="p-8 space-y-6">
+              <div className="w-12 h-12 rounded-xl bg-secondary/20 text-secondary flex items-center justify-center">
+                <Code2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold font-display mb-2">Technical Foundations</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Strong grasp of core web development concepts including semantic HTML, modern CSS
+                  architecture, and asynchronous JavaScript programming.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div variants={item}>
+          <Card className="h-full border-border/50 hover:border-primary/50 transition-colors hover:shadow-md">
+            <CardContent className="p-8 space-y-6">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-600 flex items-center justify-center dark:text-purple-400">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold font-display mb-2">Responsive Design</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Extensive knowledge in crafting layouts that adapt seamlessly across devices,
+                  prioritizing mobile-first workflows and accessibility.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}

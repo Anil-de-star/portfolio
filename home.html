@@ -1,0 +1,76 @@
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { ArrowRight, Code } from "lucide-react";
+
+export default function Home() {
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 py-12 md:py-24 overflow-hidden">
+      <div className="grid md:grid-cols-2 gap-12 items-center w-full max-w-6xl">
+        <motion.div
+          className="flex flex-col gap-6"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <div className="space-y-4">
+            <motion.div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Code className="w-4 h-4" />
+              <span>Available for new projects</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-tight tracking-tight text-foreground">
+              Hi, I am <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Venkatalakshmi
+              </span>
+            </h1>
+
+            <h2 className="text-2xl md:text-3xl text-muted-foreground font-medium">
+              I am a Web Developer
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
+              I specialize in crafting modern, responsive websites and intuitive user interfaces.
+              Driven by a deep passion for learning new technologies, I transform creative ideas
+              into polished digital experiences that people love to use.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <Link href="/about">
+              <Button size="lg" className="h-12 px-8 rounded-full text-base shadow-lg shadow-primary/25 transition-all hover:scale-105">
+                About Me
+              </Button>
+            </Link>
+            <Link href="/projects" className="group">
+              <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-base transition-all hover:bg-muted group-hover:pr-6">
+                My Projects
+                <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="relative w-full aspect-square max-w-md mx-auto md:ml-auto"
+          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full blur-3xl -z-10 animate-pulse" />
+          <img
+            src="/hero-illustration.png"
+            alt="Young female web developer at desk"
+            className="w-full h-full object-contain drop-shadow-2xl z-10 relative"
+          />
+        </motion.div>
+      </div>
+    </div>
+  );
+}

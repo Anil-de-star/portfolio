@@ -1,0 +1,86 @@
+import { motion } from "framer-motion";
+import { MapPin, User, Briefcase, Target, Heart } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function About() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
+
+  return (
+    <div className="container mx-auto px-4 py-16 md:py-24 max-w-4xl">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">About Me</h1>
+        <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
+      </motion.div>
+
+      <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-3 gap-8">
+        <motion.div variants={item} className="md:col-span-1 space-y-4">
+          <Card className="bg-card shadow-sm border-border/50">
+            <CardContent className="p-6 space-y-6">
+              <div className="space-y-1 text-sm">
+                <div className="flex items-center gap-3 text-muted-foreground mb-1">
+                  <User className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground">Full Name</span>
+                </div>
+                <p className="pl-7">Venkatalakshmi</p>
+              </div>
+              <div className="space-y-1 text-sm">
+                <div className="flex items-center gap-3 text-muted-foreground mb-1">
+                  <Briefcase className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground">Profession</span>
+                </div>
+                <p className="pl-7">Web Developer</p>
+              </div>
+              <div className="space-y-1 text-sm">
+                <div className="flex items-center gap-3 text-muted-foreground mb-1">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground">Location</span>
+                </div>
+                <p className="pl-7">Vijayawada, Andhra Pradesh<br />India (Pin: 521180)</p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div variants={item} className="md:col-span-2 space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-display font-semibold flex items-center gap-2">
+              <Target className="w-6 h-6 text-primary" /> Career Objective
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              To build modern, visually appealing, and user-friendly websites while continuously
+              improving my technical skills and contributing to impactful digital solutions.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-display font-semibold flex items-center gap-2">
+              <Heart className="w-6 h-6 text-primary" /> My Journey & Passion
+            </h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                My journey into web development started with a simple curiosity about how things
+                work on the internet. That curiosity quickly blossomed into a deep-seated passion
+                for crafting beautiful, functional interfaces. I believe that good design is
+                invisible and great engineering feels like magic.
+              </p>
+              <p>
+                I thrive in environments that challenge me to solve complex problems through
+                creative thinking and collaboration. Teamwork is at the heart of everything I do
+                — I love bouncing ideas off colleagues, learning from different perspectives, and
+                building products that make a real difference in users' lives.
+              </p>
+              <p>
+                Whether I'm writing semantic HTML, structuring scalable CSS, or weaving logic
+                with JavaScript, my focus is always on the end-user experience. Technology is my
+                tool, but people are my focus.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}

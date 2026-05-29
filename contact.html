@@ -1,0 +1,121 @@
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export default function Contact() {
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { name: "", email: "", message: "" },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    toast({ title: "Message Sent!", description: "Thank you for reaching out. I'll get back to you soon." });
+    form.reset();
+  }
+
+  const contactInfo = [
+    { icon: Phone, label: "Phone", value: "+91 7981911089", href: "tel:+917981911089" },
+    { icon: Mail, label: "Email", value: "venkatalakshmi@example.com", href: "mailto:venkatalakshmi@example.com" },
+    { icon: MapPin, label: "Location", value: "Vijayawada, Andhra Pradesh, India", href: null },
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">Get In Touch</h1>
+        <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
+      </motion.div>
+
+      <div className="grid md:grid-cols-5 gap-12 items-start">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
+          className="md:col-span-2 space-y-6"
+        >
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold font-display mb-2">Let's Connect</h2>
+            <p className="text-muted-foreground">
+              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {contactInfo.map((info, i) => (
+              <Card key={i} className="border-border/50 bg-card hover:border-primary/30 transition-colors">
+                <CardContent className="p-4 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <info.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">{info.label}</p>
+                    {info.href ? (
+                      <a href={info.href} className="text-foreground font-medium hover:text-primary transition-colors">{info.value}</a>
+                    ) : (
+                      <p className="text-foreground font-medium">{info.value}</p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
+          className="md:col-span-3"
+        >
+          <Card className="border-border/50 shadow-sm">
+            <CardContent className="p-6 md:p-8">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="name" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl><Input placeholder="Your Name" {...field} className="bg-background" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl><Input placeholder="your.email@example.com" {...field} className="bg-background" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  </div>
+                  <FormField control={form.control} name="message" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Message</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="How can I help you?" className="min-h-[150px] bg-background resize-none" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <Button type="submit" size="lg" className="w-full md:w-auto h-12 px-8 rounded-full">
+                    Send Message <Send className="w-4 h-4 ml-2" />
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
